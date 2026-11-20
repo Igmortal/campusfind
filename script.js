@@ -71,7 +71,7 @@ if (fw) {
     ["item", "location", "date", "description", "contact"].forEach(k => row[k] = String(fd.get(k)).trim());
     const { error } = await db.from("reports").insert(row);   // status defaults to 'pending' in the database
     b.disabled = false; b.textContent = "Submit report";
-    if (error) { m.className = "msg err"; m.textContent = "Something went wrong. Please try again."; return; }
+    if (error) { console.error("Supabase insert error:", error); m.className = "msg err"; m.textContent = "Couldn't save: " + error.message; return; }
     f.reset(); m.className = "msg ok"; m.textContent = "Thank you! Your report was submitted and will appear once a moderator approves it.";
   };
 }
